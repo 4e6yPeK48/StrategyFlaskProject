@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NiGamer Market</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="../static/css/main_page.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/neon.css">
+
+</head>
+<body>
+<header>
+
+    <nav class="navbar" style="display: inline ">
+        <div>
+            {% if current_user.is_authenticated %}
+                <div class="nav-item" id="center_nav_item">
+                    <a class="d-block nav-link text-black-with-white-shadow" href="/logout">Выйти</a>
+                </div>
+
+            {% else %}
+                <ul class="nav-items" style="">
+                    <li class="nav-item">
+                        <a href="#" class="register-button">Регистрация</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="login-button">Вход</a>
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+    </nav>
+</header>
+<main>
+    {% block content %}{% endblock %}
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

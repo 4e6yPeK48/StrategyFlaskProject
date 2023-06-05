@@ -1,0 +1,32 @@
+{% extends "empty.html" %}
+
+{% block content %}
+    <head>
+        <title>Логин</title>
+    </head>
+    <body>
+    <h1>Логин</h1>
+
+    <form method="POST" action="/login">
+        {{ form.csrf_token }}
+        <label for="{{ form.username.id }}">Имя пользователя:</label>
+        {{ form.username }}
+        <br>
+        <label for="{{ form.password.id }}">Пароль:</label>
+        {{ form.password }}
+        <br>
+        <label for="{{ form.remember_me.id }}">Запомнить:</label>
+        {{ form.remember_me }}
+        <br>
+        {{ form.submit(type="submit") }}
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endwith %}
+    </body>
+{% endblock %}
