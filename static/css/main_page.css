@@ -1,20 +1,21 @@
 body {
     font-family: 'Montserrat', sans-serif;
-    background-image: url("../img/background.jpg");
-    background-repeat: repeat;
 }
 
 header {
-    color: #fff;
     justify-content: space-between;
     align-items: center;
     position: static;
     top: 0;
     left: 0;
     width: 100%;
-    height: 140px;
-    backdrop-filter: blur(1px);
+    height: 80px;
     box-shadow: 0 1px 5px #9FA8DA;
+    background-repeat: repeat;
+    background-image: url('../img/pattern.jpg');
+    background-size: cover;
+    -webkit-backdrop-filter: blur(10px); /* Для поддержки в Safari */
+
 }
 
 nav a {
@@ -63,8 +64,8 @@ main {
 .button {
     padding: 8px 16px;
     height: 40px;
-    background-color: #7986CB;
-    color: #fff;
+    background-color: #AEC09A;
+    color: #000;
     text-align: center;
     text-decoration: none;
     border-radius: 4px;
@@ -72,7 +73,8 @@ main {
 }
 
 .button:hover {
-    background-color: #311B92;;
+    background-color: #1A2902;;
+    color: #cccccc;
 }
 
 .select {
@@ -131,12 +133,18 @@ main {
 
 .neon-text {
     font-size: 36px; /* Размер текста */
-    text-shadow: 0 0 5px #9FA8DA, 0 0 20px #9FA8DA, 0 0 30px #9FA8DA, 0 0 40px #9FA8DA, 0 0 50px #9FA8DA, 0 0 60px #9FA8DA; /* Основная тень текста */
+    text-shadow: 0 0 5px #AEC09A, 0 0 20px #AEC09A, 0 0 30px #AEC09A, 0 0 40px #AEC09A, 0 0 50px #AEC09A, 0 0 60px #AEC09A; /* Основная тень текста */
     animation: neon-animation 1s ease-in-out infinite alternate; /* Анимация светящейся тени */
+    text-decoration: none;
+    color: #1A2902;
+}
+
+.neon-text:hover {
+    color: #344C11
 }
 
 .neon-before {
-    color: #9FA8DA;
+    color: #AEC09A;
     text-decoration: none;
 }
 
@@ -148,10 +156,10 @@ main {
 
 @keyframes neon-animation {
     from {
-        text-shadow: 0 0 5px #9FA8DA, 0 0 20px #9FA8DA, 0 0 30px #9FA8DA, 0 0 40px #9FA8DA, 0 0 50px #9FA8DA, 0 0 60px #9FA8DA; /* Начальная тень текста */
+        text-shadow: 0 0 5px #AEC09A, 0 0 20px #AEC09A, 0 0 30px #AEC09A, 0 0 40px #AEC09A, 0 0 50px #AEC09A, 0 0 60px #AEC09A; /* Начальная тень текста */
     }
     to {
-        text-shadow: 0 0 10px #9FA8DA, 0 0 30px #9FA8DA, 0 0 40px #9FA8DA, 0 0 50px #9FA8DA, 0 0 60px #9FA8DA, 0 0 70px #9FA8DA; /* Конечная тень текста */
+        text-shadow: 0 0 10px #778D45, 0 0 30px #778D45, 0 0 40px #778D45, 0 0 50px #778D45, 0 0 60px #778D45, 0 0 70px #778D45; /* Конечная тень текста */
     }
 }
 
@@ -479,14 +487,14 @@ p {
 .btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #AFF0C1;
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: #AFF0C1;
 }
 
 
@@ -529,11 +537,6 @@ p {
     padding: 10px;
 }
 
-.nav-items {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
 
 .nav-item {
     display: inline-block;
@@ -546,7 +549,7 @@ p {
 }
 
 .register-button:hover {
-    color: #ff0000; /* Здесь можно задать цвет при наведении */
+    color: #555; /* Здесь можно задать цвет при наведении */
 }
 
 .login-button {
@@ -558,6 +561,95 @@ p {
     border-radius: 5px;
 }
 
+
 .login-button:hover {
     background-color: #555; /* Здесь можно задать цвет при наведении */
+    color: #cccccc;
+}
+
+.logout-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+
+.logout-button:hover {
+    background-color: #555; /* Здесь можно задать цвет при наведении */
+    color: #cccccc;
+}
+
+.reg-log-label {
+    margin-top: 10px;
+}
+
+.reg-card {
+    max-width: 52%;
+    min-width: 52%;
+    margin-left: 24%;
+    margin-right: 24%;
+    border-radius: 10px;
+    backdrop-filter: blur(1px);
+    box-shadow: 0 1px 5px #9FA8DA;
+    display: flex;
+}
+
+.card-item {
+    width: 100%;
+    flex: 1;
+}
+
+.item-item {
+    background-color: #AEC09A;
+    padding-bottom: 7px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+}
+
+.my-submit-button {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .card-left img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.button-container {
+    width: 100%;
+    margin-top: auto;
+}
+
+.card-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+    min-width: 45%;
+}
+
+.card-right form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.main-page-text {
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+.pattern {
+
 }

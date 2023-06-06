@@ -5,28 +5,47 @@
         <title>Логин</title>
     </head>
     <body>
-    <h1>Логин</h1>
+    <div class="reg-card">
+        <div class="card-left" style="flex: 1; max-width: 100%;">
+            <img src="../static/img/3.jpg" alt="3"
+                 style="border-bottom-left-radius: 10px; border-top-left-radius: 10px">
+        </div>
+        <div class="card-right">
+            <h1>Логин</h1>
 
-    <form method="POST" action="/login">
-        {{ form.csrf_token }}
-        <label for="{{ form.username.id }}">Имя пользователя:</label>
-        {{ form.username }}
-        <br>
-        <label for="{{ form.password.id }}">Пароль:</label>
-        {{ form.password }}
-        <br>
-        <label for="{{ form.remember_me.id }}">Запомнить:</label>
-        {{ form.remember_me }}
-        <br>
-        {{ form.submit(type="submit") }}
-    </form>
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{ category }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endwith %}
+            <form method="POST" action="/login">
+                {{ form.csrf_token }}
+                <div class="card-item">
+                    <div class="item-item">
+                        <label for="{{ form.username.id }}" class="reg-log-label">Имя пользователя:</label>
+                        <div style="float: right; margin-top: 5px">{{ form.username }}</div>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="item-item">
+                        <label for="{{ form.password.id }}" class="reg-log-label">Пароль:</label>
+                        <div style="float: right; margin-top: 5px">{{ form.password }}</div>
+                    </div>
+                </div>
+                <div style="display: inline-flex; min-width: fit-content; flex: 1">
+                    <div style="float: left; padding-top: 11px; justify-content: flex-start">{{ form.remember_me }}</div>
+                    <label for="{{ form.remember_me.id }}" style="float: right; padding-left: 10px"
+                           class="reg-log-label">Сохранить вход</label>
+                </div>
+                <div class="card-item">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}"
+                                 style="max-width: 100%; flex: 1">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endwith %}
+                </div>
+                <div class="button-container"
+                     style="flex: 1">{{ form.submit(type="submit", class="button my-submit-button") }}</div>
+            </form>
+        </div>
+    </div>
     </body>
 {% endblock %}

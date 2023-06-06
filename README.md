@@ -7,6 +7,8 @@ https://wi-fi.ru/news/a3WFg002CEJm-gorod-idey-kak-rabotaet-moskovskaya-kraudsors
 https://color.adobe.com/ru/create/image-gradient
 https://stylecss.ru/effekty-pri-navedenii-na-kartinku-css/
 https://evergreens.com.ua/ru/articles/prototype-types.html
+https://crowd.mos.ru/ # сайт идей москвы
+https://delaigorod.ru/ # сайт идей омска
 ![img.png](img.png)
 #FBCBA7 #FAC287 #FB9B80 #8187AC
 ![img_1.png](img_1.png)

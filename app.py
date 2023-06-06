@@ -46,7 +46,7 @@ def register():
             # для flash предупреждений (далее также)
             return redirect('/registration')  # Перенаправление на страницу регистрации
         if db_sess.query(User).filter(User.username == form.username.data).first():
-            flash(message='Пользователь с таким именем пользователя уже существует', category='warning ')
+            flash(message='Такой пользователь уже существует', category='warning ')
             return redirect('/registration')  # Перенаправление на страницу регистрации
         user = User()
         user.username = form.username.data
@@ -91,6 +91,11 @@ def login():
 @app.route('/')  # главная страница
 def main_page():
     return render_template('main_page.html')
+
+
+@app.route('/ideas')  # страница идей
+def ideas_page():
+
 
 
 @app.errorhandler(404)  # обработчик 404

@@ -16,22 +16,21 @@
 </head>
 <body>
 <header>
-    <nav class="navbar" style="display: inline ">
+    <div class="main-page-text"><a href="/" class="neon-text">UrbanIdeas</a></div>
+    <nav class="navbar" style="display: inline; border-radius: 8px">
         <div>
             {% if current_user.is_authenticated %}
-                <div class="nav-item" id="center_nav_item">
-                    <a class="d-block nav-link text-black-with-white-shadow" href="/logout">Выйти</a>
-                </div>
+                <li class="nav-item" style="margin-left: 10px">
+                    <a href="/logout" class="logout-button">Выйти</a>
+                </li>
 
             {% else %}
-                <ul class="nav-items" style="">
-                    <li class="nav-item">
-                        <a href="#" class="register-button">Регистрация</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="login-button">Вход</a>
-                    </li>
-                </ul>
+                <li class="nav-item" style="margin-left: 10px">
+                    <a href="/registration" class="register-button">Регистрация</a>
+                </li>
+                <li class="nav-item" style="margin-left: 10px">
+                    <a href="/login" class="login-button" style="">Вход</a>
+                </li>
             {% endif %}
         </div>
     </nav>
