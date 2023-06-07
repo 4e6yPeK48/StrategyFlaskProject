@@ -9,8 +9,6 @@ https://stylecss.ru/effekty-pri-navedenii-na-kartinku-css/
 https://evergreens.com.ua/ru/articles/prototype-types.html
 https://crowd.mos.ru/ # сайт идей москвы
 https://delaigorod.ru/ # сайт идей омска
-![img.png](img.png)
-#FBCBA7 #FAC287 #FB9B80 #8187AC
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
-![img_3.png](img_3.png)
+https://стратегия.липецкаяобласть.рф/about/
+![](static/img/cvetovaya-palitra-4573.png)
+#1A2902 #344C11 #778D45 #AEC09A #AEC670

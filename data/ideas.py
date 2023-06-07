@@ -8,11 +8,12 @@ from data.users import User
 class Idea(SqlAlchemyBase, SerializerMixin):  # класс идей
     __tablename__ = 'ideas'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user = orm.relationship('User')
     name = Column(String(100), nullable=False)
     description = Column(String)
     image = Column(String, default=None)
-    add_time = Column(DateTime, nullable=False)
+    add_time = Column(DateTime)
     approved = Column(Boolean, default=False)
     likes = Column(Integer, default=0)
 
