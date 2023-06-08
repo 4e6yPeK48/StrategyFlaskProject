@@ -3,15 +3,29 @@
 {% block content %}
     <h1>Add Idea</h1>
     <form method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
         <br>
         <label for="description">Description:</label>
         <textarea id="description" name="description" required></textarea>
         <br>
-        <label for="image">Image:</label>
-        <input type="file" id="image" name="image">
+        <label for="image" class="custom-file-upload button">
+            <input type="file" id="image" name="image" class="input-field image-field button">
+            <div id="file-name">Выберите файл картинки</div>
+
+            <script>
+                const fileInput = document.getElementById('image');
+                const fileName = document.getElementById('file-name');
+
+                fileInput.addEventListener('change', (event) => {
+                    const file = event.target.files[0];
+                    fileName.textContent = file.name;
+                    fileName.style.backgroundColor = 'black';
+                    fileName.style.fontWeight = 'bold';
+                });
+            </script>
+        </label>
         <br>
         <input type="submit" value="Submit">
     </form>

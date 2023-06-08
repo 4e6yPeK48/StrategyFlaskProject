@@ -14,7 +14,7 @@ class Idea(SqlAlchemyBase, SerializerMixin):  # класс идей
     description = Column(String)
     image = Column(String, default=None)
     add_time = Column(DateTime)
-    approved = Column(Boolean, default=False)
+    approved = Column(Boolean, default=None)
     likes = Column(Integer, default=0)
 
     def delete(self, idea_id):  # удаление идеи

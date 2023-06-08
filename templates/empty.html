@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>NiGamer Market</title>
+    <title>Flask Strategy Project</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -16,24 +16,38 @@
 </head>
 <body>
 <header>
-    <div class="main-page-text"><a href="/" class="neon-text">UrbanIdeas</a></div>
-    <nav class="navbar" style="display: inline; border-radius: 8px">
-        <div>
+    <div style="backdrop-filter: blur(5px); display: flex; height: 80px">
+        <div class="main-page-text" style="flex: 1"><a href="/" class="neon-text">UrbanIdeas</a></div>
+        <div class="header-links" style="flex: 1; display: flex; margin-top: auto; margin-bottom: auto; margin-left: -230px">
+            {% if current_user.username == 'admin' %}
+                <button class="button button-header" style="border: none">
+                    <a href="/admin">Проверить идею</a>
+                </button>
+            {% endif %}
             {% if current_user.is_authenticated %}
-                <li class="nav-item" style="margin-left: 10px">
-                    <a href="/logout" class="logout-button">Выйти</a>
-                </li>
-
-            {% else %}
-                <li class="nav-item" style="margin-left: 10px">
-                    <a href="/registration" class="register-button">Регистрация</a>
-                </li>
-                <li class="nav-item" style="margin-left: 10px">
-                    <a href="/login" class="login-button" style="">Вход</a>
-                </li>
+                <button class="button button-header" style="margin-left: 10px; border: none">
+                    <a href="{{ url_for('add_idea_step1') }}">Создать проект</a>
+                </button>
             {% endif %}
         </div>
-    </nav>
+        <nav class="navbar" style="flex: 1; border-radius: 8px; max-width: fit-content; max-height: fit-content">
+            <div>
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item" style="margin-left: 10px">
+                        <a href="/logout" class="logout-button">Выйти</a>
+                    </li>
+
+                {% else %}
+                    <li class="nav-item" style="margin-left: 30px">
+                        <a href="/registration" class="register-button">Регистрация</a>
+                    </li>
+                    <li class="nav-item" style="margin-left: 10px">
+                        <a href="/login" class="login-button" style="">Вход</a>
+                    </li>
+                {% endif %}
+            </div>
+        </nav>
+    </div>
 </header>
 <main>
     {% block content %}{% endblock %}

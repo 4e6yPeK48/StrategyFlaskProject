@@ -9,7 +9,7 @@
             <th>Описание</th>
             <th>Пользователь</th>
             <th>Дата добавления</th>
-            <th>Действия</th>
+            <th>Статус</th>
         </tr>
         </thead>
         <tbody>
@@ -18,20 +18,23 @@
                 <td>{{ idea.name }}</td>
                 <td>{{ idea.description }}</td>
                 <td>{{ idea.user.username }}</td>
-                <td>{{ idea.add_time.strftime('%Y-%m-%d %H:%M:%S') if idea.add_time else '' }}</td>
+                <td>{{ idea.add_time.strftime('%Y-%m-%d %H:%M') if idea.add_time else '' }}</td>
                 <td>
-                    {% if not idea.approved %}
-
+                    {% if idea.approved %}
+                        Принято
+                    {% elif idea.approved is none %}
                         <form action="{{ url_for('approve_idea', idea_id=idea.id) }}" method="POST"
                               style="display: inline;">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button type="submit" class="btn btn-success">Принять</button>
+                            <button type="submit" class="button" style="border: none">Принять</button>
                         </form>
                         <form action="{{ url_for('reject_idea', idea_id=idea.id) }}" method="POST"
                               style="display: inline;">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button type="submit" class="btn btn-danger">Отклонить</button>
+                            <button type="submit" class="button" style="border: none">Отклонить</button>
                         </form>
+                    {% else %}
+                        Отклонено
                     {% endif %}
                 </td>
             </tr>

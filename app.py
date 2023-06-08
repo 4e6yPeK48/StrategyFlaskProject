@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request, flash, url_for, session
+from flask import render_template, redirect, request, flash, url_for, session, abort
 from flask import Flask
 from flask_ngrok import run_with_ngrok
 
@@ -11,7 +11,9 @@ from sqlalchemy.orm import Query
 from flask_wtf.csrf import CSRFProtect
 from werkzeug.utils import secure_filename
 from flask_dropzone import Dropzone
+from flask_uploads import UploadSet, configure_uploads, IMAGES, DATA, ALL
 import os
+import datetime
 
 Idea = ideas.Idea
 # Создаем экземпляр CSRFProtect
@@ -22,7 +24,7 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['FLASK_DEBUG'] = 1
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ideas.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['UPLOADED_IMAGES_DEST'] = 'uploads'
+
 # дебаг нужен для отлавливания и исправления ошибок в реальном времени
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -32,10 +34,13 @@ csrf.init_app(app)  # csrf токен для предотвращения под
 dropzone = Dropzone(app)
 
 # добавляем конфигурацию для загрузки файлов
-app.config['UPLOAD_FOLDER'] = 'static/uploads/photos'
+app.config['UPLOAD_FOLDER'] = 'static/img/'
 app.config['DROPZONE_ALLOWED_FILE_TYPE'] = 'image'
 app.config['DROPZONE_MAX_FILES'] = 1
 app.config['DROPZONE_UPLOAD_MULTIPLE'] = False
+app.config['UPLOADED_IMAGES_DEST'] = 'static/img'
+images = UploadSet('images', IMAGES)
+configure_uploads(app, images)
 
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -95,9 +100,45 @@ def login():
 # Обработчик для страницы index (main_page.html)
 @app.route('/')
 def index():
+    sort_by = request.args.get('sort_by', '')
+    search = request.args.get('search', '')
+
     db_sess = db_session.create_session()
-    ideas = db_sess.query(Idea).filter_by(approved=True).order_by(Idea.add_time.desc()).all()
-    return render_template('main_page.html', ideas=ideas)
+
+    if sort_by == 'name_asc':
+        ideas = db_sess.query(Idea).filter(Idea.approved == 1).order_by(Idea.name.asc()).all()
+    elif sort_by == 'name_desc':
+        ideas = db_sess.query(Idea).filter(Idea.approved == 1).order_by(Idea.name.desc()).all()
+    elif sort_by == 'date_old':
+        ideas = db_sess.query(Idea).filter(Idea.approved == 1).order_by(Idea.add_time.asc()).all()
+    elif sort_by == 'date_new':
+        ideas = db_sess.query(Idea).filter(Idea.approved == 1).order_by(Idea.add_time.desc()).all()
+    elif search:
+        ideas = db_sess.query(Idea).filter(Idea.approved == 1, Idea.name.ilike(f'%{search}%')).all()
+    else:
+        ideas = db_sess.query(Idea).filter(Idea.approved == 1).all()
+
+    return render_template('main_page.html', ideas=ideas, sort_by=sort_by)
+
+
+@app.route('/delete_idea/<int:idea_id>', methods=['POST'])
+def delete_idea(idea_id):
+    # Проверка, является ли пользователь администратором
+    if current_user.username != 'admin':
+        abort(403)
+
+    # Получение идеи из базы данных
+    db_sess = db_session.create_session()
+    idea = db_sess.query(Idea).get(idea_id)
+
+    if not idea:
+        flash('Идея не найдена', 'warning')   # Обработка случая, если идея не найдена
+
+    # Удаление идеи из базы данных
+    db_sess.delete(idea)
+    db_sess.commit()
+    flash('Идея успешно удалена', 'success')
+    return redirect(url_for('index'))
 
 
 # Обработчик для страницы approved_ideas
@@ -108,17 +149,21 @@ def approved_ideas():
     return render_template('approved_ideas.html', ideas=ideas)
 
 
-# Обработчик для страницы add_idea
+# Обработчик для страницы add_idea, нерабочий
 @app.route('/add_idea', methods=['GET', 'POST'])
 def add_idea():
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
         image = request.files['image']
-
+        filename = None
+        if image:
+            filename = secure_filename(image.filename)
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         # Обработка и сохранение идеи в базу данных
         db_sess = db_session.create_session()
-        idea = Idea(user_id=current_user.id, name=name, description=description, image=image.filename)
+        current_time = datetime.datetime.now()
+        idea = Idea(user_id=current_user.id, name=name, description=description, image=filename, add_time=current_time)
         db_sess.add(idea)
         db_sess.commit()
 
@@ -126,6 +171,63 @@ def add_idea():
 
         return redirect(url_for('index'))
     return render_template('add_idea.html')
+
+
+# Функция для первой страницы добавления идеи
+@app.route('/add_idea/step1', methods=['GET', 'POST'])
+def add_idea_step1():
+    if request.method == 'POST':
+        return redirect(url_for('add_idea_step2'))
+    return render_template('add_idea_step1.html')
+
+
+# Функция для второй страницы добавления идеи
+@app.route('/add_idea/step2', methods=['GET', 'POST'])
+def add_idea_step2():
+    if request.method == 'POST':
+        # Сохранение введенной информации в сессии
+        session['idea_name'] = request.form.get('idea_name')
+        session['idea_description'] = request.form.get('idea_description')
+        session['idea_time'] = datetime.datetime.now()
+        return redirect(url_for('add_idea_step3'))
+    return render_template('add_idea_step2.html')
+
+
+# Функция для третьей страницы добавления идеи
+@app.route('/add_idea/step3', methods=['GET', 'POST'])
+def add_idea_step3():
+    db_sess = db_session.create_session()
+    if request.method == 'POST':
+        # Сохранение введенной информации в сессии
+        session['idea_image'] = request.files['image']
+
+        # Обработка отправки идеи на проверку
+        # Используйте сохраненную информацию из сессии
+        idea_name = session.get('idea_name')
+        idea_description = session.get('idea_description')
+        idea_time = session.get('idea_time')
+        idea_image = session.get('idea_image')
+
+        # Сохранение изображения
+        filename = None
+        if idea_image:
+            filename = secure_filename(idea_image.filename)
+            idea_image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        # Создание экземпляра идеи и сохранение в базу данных
+        idea = Idea(user_id=current_user.id,
+                    name=idea_name,
+                    description=idea_description,
+                    image=filename,
+                    add_time=idea_time)
+
+        db_sess.add(idea)
+        db_sess.commit()
+
+        session.clear()  # Очистка сессии после отправки идеи
+        return redirect(url_for('index'))
+
+    return render_template('add_idea_step3.html')
 
 
 # Обработчик для страницы admin_panel
@@ -173,7 +275,7 @@ def reject_idea(idea_id):
 
 
 # Обработчик для кнопки лайк/дизлайк
-@app.route('/like_dislike/<int:idea_id>/<action>')
+@app.route('/like_dislike/<int:idea_id>/<action>', methods=['POST'])
 def like_dislike(idea_id, action):
     db_sess = db_session.create_session()
     idea = db_sess.query(Idea).get(idea_id)
@@ -190,6 +292,10 @@ def like_dislike(idea_id, action):
 def not_found_error(error):
     return render_template('404.html'), 404
 
+
+@app.errorhandler(403)
+def not_found_error(error):
+    return render_template('403.html'), 403
 
 def main():
     db_session.global_init('ideas.db')

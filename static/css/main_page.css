@@ -3,8 +3,6 @@ body {
 }
 
 header {
-    justify-content: space-between;
-    align-items: center;
     position: static;
     top: 0;
     left: 0;
@@ -15,7 +13,6 @@ header {
     background-image: url('../img/pattern.jpg');
     background-size: cover;
     -webkit-backdrop-filter: blur(10px); /* Для поддержки в Safari */
-
 }
 
 nav a {
@@ -30,35 +27,6 @@ main {
     padding: 20px;
 }
 
-/* Стили для таблицы */
-.table {
-    width: 100%; /* Ширина таблицы 100% */
-    table-layout: fixed; /* Фиксированная ширина столбцов */
-    outline: 1px solid #9FA8DA;
-    border-radius: 5px; /* устанавливает радиус закругления углов в 5 пикселей */
-    border-collapse: collapse;
-}
-
-/* Стили для ячеек таблицы */
-.table th,
-.table td {
-    text-align: left; /* Выравнивание содержимого ячеек по левому краю */
-
-}
-
-/* Стили для заголовков столбцов таблицы */
-.table th {
-    background-color: #f2f2f2; /* Цвет фона заголовков столбцов */
-    font-weight: bold; /* Полужирное начертание текста в заголовках столбцов */
-
-}
-
-/* Стили для содержимого таблицы */
-.table td {
-    vertical-align: top; /* Выравнивание содержимого ячеек по верхнему краю */
-    color: #311B92;
-    backdrop-filter: blur(1px);
-}
 
 /* Стили для кнопок */
 .button {
@@ -226,9 +194,9 @@ main {
 }
 
 .navbar {
-    position: fixed;
     right: 20px;
-    top: 5px;
+    max-height: 30px;
+    max-width: 60px;
 }
 
 .list-group {
@@ -417,8 +385,12 @@ input[type="file"] {
     height: fit-content;
     backdrop-filter: blur(1px);
     box-shadow: 0 1px 5px #9FA8DA;
-    padding: 15px 7px 20px;
     text-indent: 20px;
+}
+
+.table-name {
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .main-text-divs {
@@ -533,8 +505,7 @@ p {
 }
 
 .navbar {
-    background-color: #f2f2f2;
-    padding: 10px;
+    backdrop-filter: blur(5px);
 }
 
 
@@ -652,4 +623,55 @@ p {
 
 .pattern {
 
+}
+
+/* Стили для таблицы */
+.table {
+    width: 100%; /* Ширина таблицы 100% */
+    outline: 1px solid #1a2030;
+    border-radius: 5px; /* устанавливает радиус закругления углов в 5 пикселей */
+    border-collapse: collapse;
+}
+
+/* Стили для ячеек таблицы */
+.table th,
+.table td {
+    text-align: left; /* Выравнивание содержимого ячеек по левому краю */
+
+}
+
+/* Стили для заголовков столбцов таблицы */
+.table th {
+    background-color: #f2f2f2; /* Цвет фона заголовков столбцов */
+    font-weight: bold; /* Полужирное начертание текста в заголовках столбцов */
+
+}
+
+/* Стили для содержимого таблицы */
+.table td {
+    vertical-align: top; /* Выравнивание содержимого ячеек по верхнему краю */
+}
+
+.button-header {
+    font-size: 15px;
+    text-decoration: none;
+    background-color: #cccccc;
+}
+
+.button-header a {
+    color: #1A2902;
+    text-decoration: none;
+}
+
+.button-header:hover {
+    background-color: #1A2902;
+}
+
+.button-header:hover a {
+    color: #cccccc;
+}
+
+.sort-button {
+    text-decoration: none;
+    color: #1a2030;
 }
