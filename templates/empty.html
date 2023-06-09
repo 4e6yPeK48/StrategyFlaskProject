@@ -20,12 +20,12 @@
         <div class="main-page-text" style="flex: 1"><a href="/" class="neon-text">UrbanIdeas</a></div>
         <div class="header-links" style="flex: 1; display: flex; margin-top: auto; margin-bottom: auto; margin-left: -230px">
             {% if current_user.username == 'admin' %}
-                <button class="button button-header" style="border: none">
+                <button class="button button-header">
                     <a href="/admin">Проверить идею</a>
                 </button>
             {% endif %}
             {% if current_user.is_authenticated %}
-                <button class="button button-header" style="margin-left: 10px; border: none">
+                <button class="button button-header" style="margin-left: 10px">
                     <a href="{{ url_for('add_idea_step1') }}">Создать проект</a>
                 </button>
             {% endif %}

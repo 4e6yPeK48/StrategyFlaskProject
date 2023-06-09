@@ -34,7 +34,7 @@ csrf.init_app(app)  # csrf токен для предотвращения под
 dropzone = Dropzone(app)
 
 # добавляем конфигурацию для загрузки файлов
-app.config['UPLOAD_FOLDER'] = 'static/img/'
+app.config['UPLOAD_FOLDER'] = 'static/uploads/photos'
 app.config['DROPZONE_ALLOWED_FILE_TYPE'] = 'image'
 app.config['DROPZONE_MAX_FILES'] = 1
 app.config['DROPZONE_UPLOAD_MULTIPLE'] = False
@@ -121,6 +121,15 @@ def index():
     return render_template('main_page.html', ideas=ideas, sort_by=sort_by)
 
 
+@app.route('/idea/<int:idea_id>')
+def idea_detail(idea_id):
+    db_sess = db_session.create_session()
+    idea = db_sess.query(Idea).get(idea_id)
+    if idea is None:
+        abort(404)
+    return render_template('idea_detail.html', idea=idea)
+
+
 @app.route('/delete_idea/<int:idea_id>', methods=['POST'])
 def delete_idea(idea_id):
     # Проверка, является ли пользователь администратором
@@ -132,45 +141,13 @@ def delete_idea(idea_id):
     idea = db_sess.query(Idea).get(idea_id)
 
     if not idea:
-        flash('Идея не найдена', 'warning')   # Обработка случая, если идея не найдена
+        flash('Идея не найдена', 'warning')  # Обработка случая, если идея не найдена
 
     # Удаление идеи из базы данных
     db_sess.delete(idea)
     db_sess.commit()
     flash('Идея успешно удалена', 'success')
     return redirect(url_for('index'))
-
-
-# Обработчик для страницы approved_ideas
-@app.route('/approved_ideas')
-def approved_ideas():
-    db_sess = db_session.create_session()
-    ideas = db_sess.query(Idea).filter_by(approved=True).all()
-    return render_template('approved_ideas.html', ideas=ideas)
-
-
-# Обработчик для страницы add_idea, нерабочий
-@app.route('/add_idea', methods=['GET', 'POST'])
-def add_idea():
-    if request.method == 'POST':
-        name = request.form['name']
-        description = request.form['description']
-        image = request.files['image']
-        filename = None
-        if image:
-            filename = secure_filename(image.filename)
-            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        # Обработка и сохранение идеи в базу данных
-        db_sess = db_session.create_session()
-        current_time = datetime.datetime.now()
-        idea = Idea(user_id=current_user.id, name=name, description=description, image=filename, add_time=current_time)
-        db_sess.add(idea)
-        db_sess.commit()
-
-        # Сохранение изображения в папку проекта (используйте свою логику сохранения изображения)
-
-        return redirect(url_for('index'))
-    return render_template('add_idea.html')
 
 
 # Функция для первой страницы добавления идеи
@@ -199,20 +176,17 @@ def add_idea_step3():
     db_sess = db_session.create_session()
     if request.method == 'POST':
         # Сохранение введенной информации в сессии
-        session['idea_image'] = request.files['image']
-
         # Обработка отправки идеи на проверку
         # Используйте сохраненную информацию из сессии
         idea_name = session.get('idea_name')
         idea_description = session.get('idea_description')
         idea_time = session.get('idea_time')
-        idea_image = session.get('idea_image')
 
         # Сохранение изображения
-        filename = None
-        if idea_image:
-            filename = secure_filename(idea_image.filename)
-            idea_image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        image = request.files['image']
+        if image:
+            filename = secure_filename(image.filename)
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         # Создание экземпляра идеи и сохранение в базу данных
         idea = Idea(user_id=current_user.id,
@@ -285,7 +259,7 @@ def like_dislike(idea_id, action):
         elif action == 'dislike':
             idea.likes -= 1
         db_sess.commit()
-    return redirect(url_for('index'))
+    return '<script>document.location.href = document.referrer</script>'
 
 
 @app.errorhandler(404)
@@ -296,6 +270,7 @@ def not_found_error(error):
 @app.errorhandler(403)
 def not_found_error(error):
     return render_template('403.html'), 403
+
 
 def main():
     db_session.global_init('ideas.db')

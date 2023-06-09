@@ -22,20 +22,25 @@
         <div style="justify-self: flex-end; margin-top: auto; margin-bottom: auto; display: flex; flex-direction: row">
             <div class="sort-buttons" style="display: flex; margin-top: auto; margin-bottom: auto;">
                 <form action="{{ url_for('index') }}" method="GET" class="sort-form">
-                    <select name="sort_by" class="sort-select" onchange="this.form.submit()">
-                        <option value="" {% if not sort_by %}selected{% endif %}>-- Сортировка --</option>
-                        <option value="name_asc" {% if sort_by == 'name_asc' %}selected{% endif %}>По алфавиту (а-я)
-                        </option>
-                        <option value="name_desc" {% if sort_by == 'name_desc' %}selected{% endif %}>По алфавиту (я-а)
-                        </option>
-                        <option value="date_old" {% if sort_by == 'date_old' %}selected{% endif %}>Старые</option>
-                        <option value="date_new" {% if sort_by == 'date_new' %}selected{% endif %}>Новые</option>
-                    </select>
+                    <label>
+                        <select name="sort_by" class="sort-select" onchange="this.form.submit()">
+                            <option value="" {% if not sort_by %}selected{% endif %}>-- Сортировка --</option>
+                            <option value="name_asc" {% if sort_by == 'name_asc' %}selected{% endif %}>По алфавиту (а-я)
+                            </option>
+                            <option value="name_desc" {% if sort_by == 'name_desc' %}selected{% endif %}>По алфавиту
+                                (я-а)
+                            </option>
+                            <option value="date_old" {% if sort_by == 'date_old' %}selected{% endif %}>Старые</option>
+                            <option value="date_new" {% if sort_by == 'date_new' %}selected{% endif %}>Новые</option>
+                        </select>
+                    </label>
                 </form>
             </div>
             <div style="display: flex; margin-top: auto; margin-bottom: auto">
                 <form action="{{ url_for('index') }}" method="GET" class="search-form">
-                    <input type="text" name="search" placeholder="Поиск по названию">
+                    <label>
+                        <input type="text" name="search" placeholder="Поиск по названию">
+                    </label>
                     <button type="submit" class="search-button button-header"
                             style="padding: 5px; border-radius: 5px; border: none; margin-right: 10px">Поиск
                     </button>
@@ -43,56 +48,35 @@
             </div>
         </div>
     </div>
-    <table class="table" style="margin-top: 20px">
-        <tr>
-            <th>Имя</th>
-            <th>Описание</th>
-            <th style="max-width: 170px; min-width: 170px">Картинка</th>
-            <th>Время добавления</th>
-            <th>Лайки</th>
-            <th>Оценить</th>
-            {% if current_user.username == 'admin' %}
-                <th style="max-width: 100px">Удалить</th>
-            {% endif %}
-        </tr>
+    <div class="row" style="margin-top: 20px">
         {% for idea in ideas %}
-            <tr>
-                <td style="width: auto;">{{ idea.name }}</td>
-                <td style="width: auto;">{{ idea.description }}</td>
-                <td>
-                    {% if idea.image %}
-                        <img src="{{ url_for('static', filename='img/' + idea.image) }}" alt="Image"
-                             style="max-width: 250px">
-                    {% else %}
-                        <p>Нет картинки</p>
-                    {% endif %}
-                </td>
-                <td style="width: auto;">{{ idea.add_time.strftime('%Y-%m-%d %H:%M') }}</td>
-                <td style="width: auto;">{{ idea.likes }}</td>
-                <td style="display: flex; flex-direction: row; margin-top: auto; margin-bottom: auto" class="td-test">
-                    <form action="{{ url_for('like_dislike', idea_id=idea.id, action='like') }}" method="POST">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                        <input type="image" src="/static/img/like-transformed.png" alt="like"
-                               style="max-width: 32px; max-height: 32px; padding: 0">
-                    </form>
-                    <form action="{{ url_for('like_dislike', idea_id=idea.id, action='dislike') }}" method="POST"
-                          style="margin-left: 10px">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                        <input type="image" src="/static/img/dis-transformed.png" alt="Dislike"
-                               style="max-width: 32px; max-height: 32px; padding: 0">
-                    </form>
-                </td>
-                {% if current_user.username == 'admin' %}
-                    <td style="max-width: 100px; right: 0">
-                        <form action="{{ url_for('delete_idea', idea_id=idea.id) }}" method="POST"
-                              style="max-width: 100px">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button class="delete-button button" style="border: none">Удалить</button>
-                        </form>
-                    </td>
-                {% endif %}
-            </tr>
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-4">
+                <div class="card text-white card-has-bg click-col"
+                     onclick="window.location.href='{{ url_for('idea_detail', idea_id=idea.id) }}'"
+                     style="background-image: url('{{ url_for('static', filename='img/' + idea.image) if idea.image else url_for('static', filename='img/placeholder.jpg') }}'); width: 300px; height: 450px">
+                    <img class="card-img d-none"
+                         src="{{ url_for('static', filename='img/' + idea.image) if idea.image else url_for('static', filename='img/placeholder.jpg') }}"
+                         alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?" style="width: 300px; height: 450px">
+                    <div class="card-img-overlay d-flex flex-column">
+                        <div class="card-body">
+                            <small class="card-meta mb-2">Идея номер {{ idea.id }}</small>
+                            <h4 class="card-title mt-0"><a class="text-white" href="#">{{ idea.name }}</a></h4>
+                            <small><i class="far fa-clock"></i>{{ idea.add_time }}</small>
+                        </div>
+                        <div class="card-footer">
+                            <div class="media">
+                                <div class="media-body">
+                                    <h6 class="my-0 text-white d-block">{{ idea.user.username }}</h6>
+                                    <small>Пользователь</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-    </table>
+    </div>
+
     </body>
 {% endblock %}
+
