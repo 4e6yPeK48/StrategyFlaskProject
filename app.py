@@ -100,7 +100,7 @@ def login():
 @app.route('/')
 def landing():
     return render_template('empty.html')
-
+# TODO: https://urbanideas.work/work сделать главную страницу, изображение static сзади всего как на сайте
 
 # Обработчик для страницы index (main_page.html)
 @app.route('/ideas')
