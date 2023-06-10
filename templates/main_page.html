@@ -22,27 +22,36 @@
         <div style="justify-self: flex-end; margin-top: auto; margin-bottom: auto; display: flex; flex-direction: row">
             <div class="sort-buttons" style="display: flex; margin-top: auto; margin-bottom: auto;">
                 <form action="{{ url_for('index') }}" method="GET" class="sort-form">
-                    <label>
-                        <select name="sort_by" class="sort-select" onchange="this.form.submit()">
-                            <option value="" {% if not sort_by %}selected{% endif %}>-- Сортировка --</option>
-                            <option value="name_asc" {% if sort_by == 'name_asc' %}selected{% endif %}>По алфавиту (а-я)
-                            </option>
-                            <option value="name_desc" {% if sort_by == 'name_desc' %}selected{% endif %}>По алфавиту
-                                (я-а)
-                            </option>
-                            <option value="date_old" {% if sort_by == 'date_old' %}selected{% endif %}>Старые</option>
-                            <option value="date_new" {% if sort_by == 'date_new' %}selected{% endif %}>Новые</option>
-                        </select>
-                    </label>
+                    <select name="sort_by" class="button button-header" onchange="this.form.submit()"
+                            style="padding-left: -20px; padding-right: 20px; height: 40px">
+                        <option class="select-option" value="" {% if not sort_by %}selected{% endif %}>-- Сортировка
+                            --
+                        </option>
+                        <option class="select-option" value="name_asc"
+                                {% if sort_by == 'name_asc' %}selected{% endif %}>По алфавиту (а-я)
+                        </option>
+                        <option class="select-option" value="name_desc"
+                                {% if sort_by == 'name_desc' %}selected{% endif %}>По алфавиту
+                            (я-а)
+                        </option>
+                        <option class="select-option" value="date_old"
+                                {% if sort_by == 'date_old' %}selected{% endif %}>Старые
+                        </option>
+                        <option class="select-option" value="date_new"
+                                {% if sort_by == 'date_new' %}selected{% endif %}>Новые
+                        </option>
+                    </select>
                 </form>
             </div>
-            <div style="display: flex; margin-top: auto; margin-bottom: auto">
+            <div style="display: flex; margin-top: auto; margin-bottom: auto; margin-right: 20px">
                 <form action="{{ url_for('index') }}" method="GET" class="search-form">
                     <label>
-                        <input type="text" name="search" placeholder="Поиск по названию">
+                        <input type="text" name="search"
+                               style="padding-left: 10px;height: 40px; margin-top: auto; margin-bottom: auto;"
+                               placeholder="Поиск по названию">
                     </label>
-                    <button type="submit" class="search-button button-header"
-                            style="padding: 5px; border-radius: 5px; border: none; margin-right: 10px">Поиск
+                    <button type="submit" class="button button-header"
+                            style="height: 40px; margin-top: auto; margin-bottom: auto;">Поиск
                     </button>
                 </form>
             </div>
@@ -61,7 +70,7 @@
                         <div class="card-body">
                             <small class="card-meta mb-2">Идея номер {{ idea.id }}</small>
                             <h4 class="card-title mt-0"><a class="text-white" href="#">{{ idea.name }}</a></h4>
-                            <small><i class="far fa-clock"></i>{{ idea.add_time }}</small>
+                            <small><i class="far fa-clock"></i>{{ idea.add_time.strftime('%d.%m.%Y %H:%M') }}</small>
                         </div>
                         <div class="card-footer">
                             <div class="media">

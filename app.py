@@ -97,8 +97,13 @@ def login():
     return render_template('login.html', title='Авторизация', form=form)
 
 
-# Обработчик для страницы index (main_page.html)
 @app.route('/')
+def landing():
+    return render_template('empty.html')
+
+
+# Обработчик для страницы index (main_page.html)
+@app.route('/ideas')
 def index():
     sort_by = request.args.get('sort_by', '')
     search = request.args.get('search', '')

@@ -15,10 +15,16 @@
 
 </head>
 <body>
-<header>
+<header class="header">
     <div style="backdrop-filter: blur(5px); display: flex; height: 80px">
-        <div class="main-page-text" style="flex: 1"><a href="/" class="neon-text">UrbanIdeas</a></div>
-        <div class="header-links" style="flex: 1; display: flex; margin-top: auto; margin-bottom: auto; margin-left: -230px">
+        <div class="main-page-text" style="flex: 1; margin-top: auto; margin-bottom: auto;"><a href="/"
+                                                                                               class="neon-text">UrbanIdeas</a>
+        </div>
+        <div class="header-links"
+             style="flex: 1; display: flex; margin-top: auto; margin-bottom: auto; margin-left: -230px">
+            <button class="button button-header" style="; margin-right: 10px">
+                <a href="/ideas">Идеи</a>
+            </button>
             {% if current_user.username == 'admin' %}
                 <button class="button button-header">
                     <a href="/admin">Проверить идею</a>
@@ -55,6 +61,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
-
+<script
+        src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+        crossorigin="anonymous"></script>
+<script src="../static/js/scroll.js"></script>
 </body>
 </html>
