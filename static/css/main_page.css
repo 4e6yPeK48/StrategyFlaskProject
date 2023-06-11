@@ -20,6 +20,7 @@ header {
     position: sticky;
     transition: 1s;
     top: 0;
+    z-index: 9999;
 }
 
 .header_hidden {
@@ -106,12 +107,22 @@ main {
     border-color: #007bff;
 }
 
+
+@font-face {
+    font-family: "Gloria Hallelujah";
+    src: url("../fonts/GloriaHallelujah-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
 .neon-text {
     font-size: 36px;
     text-shadow: 0 0 5px #AEC09A, 0 0 20px #AEC09A, 0 0 30px #AEC09A, 0 0 40px #AEC09A, 0 0 50px #AEC09A, 0 0 60px #AEC09A;
     animation: neon-animation 1s ease-in-out infinite alternate;
     text-decoration: none;
     color: #1A2902;
+    font-family: "Gloria Hallelujah", sans-serif;
+
 }
 
 .neon-text:hover {
@@ -817,20 +828,26 @@ p {
 }
 
 .idea-details {
-    margin-left: 20px;
-    margin-bottom: 20px
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 #h2-idea-name {
-    margin-top: 20px
+    margin-top: 20px;
+    justify-self: center;
+    text-align: center;
 }
 
 #img-idea-image {
-    max-width: 300px;
-    max-height: 300px;
+    max-width: 800px;
+    max-height: 500px;
     border-radius: 10px;
     box-shadow: 0 1px 5px #9FA8DA;
-    margin-left: 20px
+    display: block;
+    margin: 0 auto;
 }
 
 #button-mt-20 {
@@ -874,7 +891,7 @@ p {
 
 #select-style {
     padding-left: -20px;
-    padding-right: 20px;
+    padding-right: -20px;
     height: 40px
 }
 
@@ -969,4 +986,123 @@ p {
 
 .admin-button {
     border: none
+}
+
+.button-sort {
+    border: none;
+    background-color: #cccccc;
+    border-radius: 5px;
+}
+
+.button-sort:hover {
+    background-color: #dddddd;
+    border: none;
+}
+
+.comment {
+    margin-bottom: 30px;
+    border: 1px solid #AEC09A;
+    border-radius: 5px;
+    max-width: 40%;
+    min-width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.comment p {
+    margin: 0;
+}
+
+.comment-author {
+    background-color: #AEC09A;
+    padding: 10px 2px;
+}
+
+.comment-author .author {
+    font-weight: bold;
+    color: #1a2030;
+    font-size: 20px;
+    display: flex;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    text-align: left;
+}
+
+.comment-author .date {
+    font-style: oblique;
+    color: #555555;
+    font-size: 13px;
+    text-align: left;
+}
+
+.comment-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 5px;
+    margin-bottom: 10px;
+    max-width: 100%;
+}
+
+.comment-enter-label {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button-ml-20 {
+    margin-left: 20px;
+}
+
+.comments-section {
+    margin-left: 10px;
+    border: 1px #555555;
+    border-radius: 10px;
+    justify-self: center;
+    text-align: center;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-text {
+    padding: 10px;
+    font-size: 15px;
+    text-align: left;
+    max-width: 100%;
+}
+
+.idea-details-block-1 {
+    background-image: url("../img/pattern.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    max-width: 65%;
+    min-width: 65%;
+    max-height: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.blur-image-card {
+    display: flex;
+    flex-direction: row;
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    max-width: 100%;
+    min-width: 100%;
+    max-height: fit-content;
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.idea-image-date {
+    flex: 1;
+}
+
+.idea-description {
+    flex: 1;
 }

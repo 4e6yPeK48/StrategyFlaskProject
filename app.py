@@ -3,7 +3,7 @@ from flask import Flask
 from flask_ngrok import run_with_ngrok
 
 import data
-from data import db_session, users, ideas
+from data import db_session, users, ideas, comments
 from forms.registration import RegistrationForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from forms.login import LoginForm
@@ -14,8 +14,12 @@ from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, DATA, ALL
 import os
 import datetime
+from babel.dates import format_datetime
+from babel import Locale
 
 Idea = ideas.Idea
+Comment = comments.Comment
+User = users.User
 # Создаем экземпляр CSRFProtect
 csrf = CSRFProtect()
 
@@ -100,6 +104,8 @@ def login():
 @app.route('/')
 def landing():
     return render_template('empty.html')
+
+
 # TODO: https://urbanideas.work/work сделать главную страницу, изображение static сзади всего как на сайте
 
 # Обработчик для страницы index (main_page.html)
@@ -126,13 +132,37 @@ def index():
     return render_template('main_page.html', ideas=ideas, sort_by=sort_by)
 
 
+@app.route('/add_comment/<int:idea_id>', methods=['POST'])
+def add_comment(idea_id):
+    db_sess = db_session.create_session()
+    comment_text = request.form.get('comment_text')
+    if not comment_text:
+        return redirect(url_for('idea_detail', idea_id=idea_id))
+
+    comment = Comment(
+        text=comment_text,
+        idea_id=idea_id,
+        user_id=current_user.id,
+        add_time=datetime.datetime.now()
+    )
+    db_sess.add(comment)
+    db_sess.commit()
+
+    return redirect(url_for('idea_detail', idea_id=idea_id))
+
+
 @app.route('/idea/<int:idea_id>')
 def idea_detail(idea_id):
     db_sess = db_session.create_session()
     idea = db_sess.query(Idea).get(idea_id)
     if idea is None:
         abort(404)
-    return render_template('idea_detail.html', idea=idea)
+
+    locale = Locale.parse('ru')
+    for comment in idea.comments:
+        comment.add_time_formatted = format_datetime(comment.add_time, format='d MMMM Y, H:mm', locale=locale)
+
+    return render_template('idea_detail.html', idea=idea, comments=comments, locale=locale)
 
 
 @app.route('/delete_idea/<int:idea_id>', methods=['POST'])

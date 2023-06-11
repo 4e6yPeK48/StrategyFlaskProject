@@ -11,7 +11,7 @@ class Idea(SqlAlchemyBase, SerializerMixin):  # класс идей
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     user = orm.relationship('User')
     name = Column(String(100), nullable=False)
-    description = Column(String)
+    description = Column(String(1000))
     image = Column(String, default=None)
     add_time = Column(DateTime)
     approved = Column(Boolean, default=None)

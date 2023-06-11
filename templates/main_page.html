@@ -20,9 +20,8 @@
         <div id="sort-buttons">
             <div class="sort-buttons">
                 <form action="{{ url_for('index') }}" method="GET" class="sort-form">
-                    <select name="sort_by" class="button button-header" onchange="this.form.submit()" id="select-style">
-                        <option class="select-option" value="" {% if not sort_by %}selected{% endif %}>-- Сортировка
-                            --
+                    <select name="sort_by" class="button-sort" onchange="this.form.submit()" id="select-style">
+                        <option class="select-option" value="" {% if not sort_by %}selected{% endif %}>-- Сортировка --
                         </option>
                         <option class="select-option" value="name_asc"
                                 {% if sort_by == 'name_asc' %}selected{% endif %}>По алфавиту (а-я)
@@ -59,7 +58,7 @@
             <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-4">
                 <div class="card text-white card-has-bg click-col card-image-background"
                      onclick="window.location.href='{{ url_for('idea_detail', idea_id=idea.id) }}'"
-                     style="background-image: url('{{ url_for(' static ', filename=' img/ ' + idea.image) if idea.image else url_for(' static ', filename=' img/placeholder.jpg ') }}');">
+                     style="background-image: url('{{ url_for('static', filename='uploads/photos/' + idea.image) if idea.image else url_for('static', filename='img/placeholder.jpg') }}');">
                     <img class="card-img d-none card-image-background"
                          src="{{ url_for('static', filename='img/' + idea.image) if idea.image else url_for('static', filename='img/placeholder.jpg') }}"
                          alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
