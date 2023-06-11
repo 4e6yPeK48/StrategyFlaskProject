@@ -3,30 +3,30 @@
 {% block content %}
     <h1>Добавление идеи - шаг 3</h1>
     <div class="card">
-        <form method="POST" enctype="multipart/form-data" style="min-width: 40%; display: flex; flex-direction: column">
+        <form method="POST" enctype="multipart/form-data" class="form-step-3">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <div style="display: flex; flex-direction: row; margin-top: 20px">
-                <h4 style="margin-top: auto; margin-bottom: auto;flex: 1">Название идеи:</h4>
-                <p style="margin-top: auto; margin-bottom: auto;flex: 1">{{ session['idea_name'] }}</p>
+            <div class="ideas-step-3-info">
+                <h4>Название идеи:</h4>
+                <p>{{ session['idea_name'] }}</p>
             </div>
 
-            <div style="display: flex; flex-direction: row; margin-top: 20px">
-                <h4 style="margin-top: auto; margin-bottom: auto; flex: 1">Описание идеи:</h4>
-                <p style="margin-top: auto; margin-bottom: auto;flex: 1">{{ session['idea_description'] }}</p>
+            <div class="ideas-step-3-info">
+                <h4>Описание идеи:</h4>
+                <p>{{ session['idea_description'] }}</p>
             </div>
 
-            <div style="display: flex; flex-direction: row; margin-top: 20px">
-                <h4 style="margin-top: auto; margin-bottom: auto;flex: 1">Время добавления:</h4>
-                <p style="margin-top: auto; margin-bottom: auto;flex: 1">{{ session['idea_time'] }}</p>
+            <div class="ideas-step-3-info">
+                <h4>Время добавления:</h4>
+                <p>{{ session['idea_time'] }}</p>
             </div>
 
 
-            <label for="image" class="custom-file-upload button" style="; margin-top: 20px">
+            <label for="image" class="custom-file-upload button">
                 <input type="file" id="image" name="image" class="input-field image-field button">
                 <div id="file-name">Выберите файл картинки</div>
             </label>
 
-            <script >
+            <script>
                 const fileInput = document.getElementById('image');
                 const fileName = document.getElementById('file-name');
 
@@ -38,9 +38,8 @@
                 });
             </script>
 
-            <input type="submit" name="submit_button" value="Submit Idea"
-                   style="margin-top: 20px;margin-bottom: 20px; border: none"
-                   class="button">
+            <input type="submit" name="submit_button" value="Отправить на проверку" class="button"
+                   id="submit-button-step-3">
         </form>
     </div>
 {% endblock %}

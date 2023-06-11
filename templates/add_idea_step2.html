@@ -3,24 +3,24 @@
 {% block content %}
     <h1>Добавление идеи - шаг 2</h1>
     <div class="card">
-        <form method="POST" style="display: flex; flex-direction: column">
+        <form method="POST" class="form-step-2">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <div class="card-item" style="margin-bottom: 20px; margin-top: 20px">
+            <div class="card-item" id="card-item-step-2">
                 <label for="idea_name">Введите название:</label>
                 <input type="text" id="idea_name" name="idea_name" required>
             </div>
-            <div class="card-item" style="display: flex">
-                <div style="flex: 1">
+            <div class="card-item" id="card-item-flex">
+                <div class="card-item-flex-item">
                     <label for="idea_description">Введите описание:
                     </label>
                 </div>
-                <div style="flex: 1">
+                <div class="card-item-flex-item">
                     <textarea id="idea_description" name="idea_description" required></textarea>
                 </div>
 
             </div>
 
-            <input type="submit" value="Next" style="margin-top: 20px; margin-bottom: 20px;border: none" class="button">
+            <input type="submit" value="Далее" id="submit-button-step-2" class="button">
         </form>
     </div>
 

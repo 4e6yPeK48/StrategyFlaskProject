@@ -6,9 +6,8 @@
     </head>
     <body>
     <div class="reg-card">
-        <div class="card-left" style="flex: 1; max-width: 100%;">
-            <img src="../static/img/1.jpg" alt="1"
-                 style="border-bottom-left-radius: 10px; border-top-left-radius: 10px">
+        <div class="card-left">
+            <img src="../static/img/1.jpg" alt="1" class="card-left-img">
         </div>
         <div class="card-right">
             <h1>Регистрация</h1>
@@ -18,19 +17,19 @@
                 <div class="card-item">
                     <div class="item-item">
                         <label for="{{ form.username.id }}" class="reg-log-label">Имя пользователя:</label>
-                        <div style="float: right; margin-top: 5px">{{ form.username }}</div>
+                        <div class="item-item-item">{{ form.username }}</div>
                     </div>
                 </div>
                 <div class="card-item">
                     <div class="item-item">
                         <label for="{{ form.password.id }}" class="reg-log-label">Пароль:</label>
-                        <div style="float: right; margin-top: 5px">{{ form.password }}</div>
+                        <div class="item-item-item">{{ form.password }}</div>
                     </div>
                 </div>
                 <div class="card-item">
                     <div class="item-item">
                         <label for="{{ form.confirm_password.id }}" class="reg-log-label">Подтверждение:</label>
-                        <div style="float: right; margin-top: 5px">{{ form.confirm_password }}</div>
+                        <div class="item-item-item">{{ form.confirm_password }}</div>
                     </div>
                 </div>
                 <div class="card-item">
@@ -40,16 +39,16 @@
                                 {{ message }}<br>
                                 <a href="/login">Перейти ко входу</a>
                             {% else %}
-                                <div class="alert alert-{{ category }}"
-                                     style="max-width: 100%; flex: 1">
+                                <div class="alert alert-{{ category }} alert-login">
                                     {{ message }}
                                 </div>
                             {% endif %}
                         {% endfor %}
                     {% endwith %}
                 </div>
-                <div class="button-container"
-                     style="flex: 1; ">{{ form.submit(type="submit", class="button my-submit-button", style="border: none") }}</div>
+                <div class="button-container">
+                    {{ form.submit(type="submit", class="button my-submit-button", style="border: none") }}
+                </div>
             </form>
 
         </div>

@@ -5,14 +5,12 @@
         <title>Детали идеи</title>
     </head>
     <body>
-    <div class="border-radius-10px main-text"
-         style="display: flex;">
-        <div class="idea-details" style="margin-left: 20px; margin-bottom: 20px">
-            <h2 style="margin-top: 20px">{{ idea.name }}</h2>
+    <div class="border-radius-10px main-text">
+        <div class="idea-details">
+            <h2 id="h2-idea-name">{{ idea.name }}</h2>
             <p>{{ idea.description }}</p>
             {% if idea.image %}
-                <img src="{{ url_for('static', filename='img/' + idea.image) }}" alt="Image"
-                     style="max-width: 300px; max-height: 300px; border-radius: 10px; box-shadow: 0 1px 5px #9FA8DA; margin-left: 20px">
+                <img src="{{ url_for('static', filename='img/' + idea.image) }}" alt="Image" id="img-idea-image">
             {% endif %}
             <p>Дата добавления: {{ idea.add_time.strftime('%Y-%m-%d %H:%M') }}</p>
             <p>Лайки: {{ idea.likes }}</p>
@@ -25,7 +23,7 @@
 
                 <form method="POST" action="{{ url_for('like_dislike', idea_id=idea.id, action='dislike') }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                    <button style="margin-top: 20px" type="submit" class="button button-header"><a>Дизлайк</a></button>
+                    <button type="submit" class="button button-header" id="button-mt-20"><a>Дизлайк</a></button>
                 </form>
             {% endif %}
         </div>

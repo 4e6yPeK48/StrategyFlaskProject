@@ -204,6 +204,7 @@ def add_idea_step3():
         db_sess.commit()
 
         session.clear()  # Очистка сессии после отправки идеи
+        flash('Идея отправлена на проверку', 'success')
         return redirect(url_for('index'))
 
     return render_template('add_idea_step3.html')
@@ -283,3 +284,5 @@ def main():
 
 
 main()
+
+# TODO: задачи - проанализировать, создать эскизы, создать прототип, создать продукт

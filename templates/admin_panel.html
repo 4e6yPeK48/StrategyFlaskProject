@@ -23,15 +23,13 @@
                     {% if idea.approved %}
                         Принято
                     {% elif idea.approved is none %}
-                        <form action="{{ url_for('approve_idea', idea_id=idea.id) }}" method="POST"
-                              style="display: inline;">
+                        <form action="{{ url_for('approve_idea', idea_id=idea.id) }}" method="POST" class="form-admin">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button type="submit" class="button" style="border: none">Принять</button>
+                            <button type="submit" class="button admin-button">Принять</button>
                         </form>
-                        <form action="{{ url_for('reject_idea', idea_id=idea.id) }}" method="POST"
-                              style="display: inline;">
+                        <form action="{{ url_for('reject_idea', idea_id=idea.id) }}" method="POST" class="form-admin">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button type="submit" class="button" style="border: none">Отклонить</button>
+                            <button type="submit" class="button admin-button">Отклонить</button>
                         </form>
                     {% else %}
                         Отклонено

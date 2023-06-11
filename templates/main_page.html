@@ -6,24 +6,21 @@
         <link rel="stylesheet" type="text/css" href="../static/css/main_page.css">
     </head>
     <body>
-    <div class="border-radius-10px main-text"
-         style="display: flex; min-height: 79px; max-height: 79px; justify-content: space-between; flex-direction: row">
-        <div class="table-name" style="justify-self: flex-start; margin-top: auto; margin-bottom: auto">
+    <div class="border-radius-10px main-text" id="main-page-div">
+        <div class="table-name">
             <h3>Сортировка</h3>
         </div>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% for category, message in messages %}
-                <div class="alert alert-{{ category }}"
-                     style="max-width: fit-content; margin-top: auto; margin-bottom: auto; margin-left: 20px; padding-right: 30px">
+                <div class="alert alert-{{ category }}" id="alert-style">
                     {{ message }}
                 </div>
             {% endfor %}
         {% endwith %}
-        <div style="justify-self: flex-end; margin-top: auto; margin-bottom: auto; display: flex; flex-direction: row">
-            <div class="sort-buttons" style="display: flex; margin-top: auto; margin-bottom: auto;">
+        <div id="sort-buttons">
+            <div class="sort-buttons">
                 <form action="{{ url_for('index') }}" method="GET" class="sort-form">
-                    <select name="sort_by" class="button button-header" onchange="this.form.submit()"
-                            style="padding-left: -20px; padding-right: 20px; height: 40px">
+                    <select name="sort_by" class="button button-header" onchange="this.form.submit()" id="select-style">
                         <option class="select-option" value="" {% if not sort_by %}selected{% endif %}>-- Сортировка
                             --
                         </option>
@@ -43,29 +40,29 @@
                     </select>
                 </form>
             </div>
-            <div style="display: flex; margin-top: auto; margin-bottom: auto; margin-right: 20px">
+            <div id="search-label">
                 <form action="{{ url_for('index') }}" method="GET" class="search-form">
                     <label>
                         <input type="text" name="search"
-                               style="padding-left: 10px;height: 40px; margin-top: auto; margin-bottom: auto;"
-                               placeholder="Поиск по названию">
+                               id="search-input-pl-10"
+                               placeholder="Поиск по названию"
+                               class="search-input">
                     </label>
-                    <button type="submit" class="button button-header"
-                            style="height: 40px; margin-top: auto; margin-bottom: auto;">Поиск
+                    <button type="submit" class="button button-header search-input">Поиск
                     </button>
                 </form>
             </div>
         </div>
     </div>
-    <div class="row" style="margin-top: 20px">
+    <div class="row" id="row-ideas">
         {% for idea in ideas %}
             <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-4">
-                <div class="card text-white card-has-bg click-col"
+                <div class="card text-white card-has-bg click-col card-image-background"
                      onclick="window.location.href='{{ url_for('idea_detail', idea_id=idea.id) }}'"
-                     style="background-image: url('{{ url_for('static', filename='img/' + idea.image) if idea.image else url_for('static', filename='img/placeholder.jpg') }}'); width: 300px; height: 450px">
-                    <img class="card-img d-none"
+                     style="background-image: url('{{ url_for(' static ', filename=' img/ ' + idea.image) if idea.image else url_for(' static ', filename=' img/placeholder.jpg ') }}');">
+                    <img class="card-img d-none card-image-background"
                          src="{{ url_for('static', filename='img/' + idea.image) if idea.image else url_for('static', filename='img/placeholder.jpg') }}"
-                         alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?" style="width: 300px; height: 450px">
+                         alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
                     <div class="card-img-overlay d-flex flex-column">
                         <div class="card-body">
                             <small class="card-meta mb-2">Идея номер {{ idea.id }}</small>
