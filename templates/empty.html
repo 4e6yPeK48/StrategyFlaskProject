@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Flask Strategy Project</title>
+    <title>UrbanIdeas</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="../static/css/main_page.css">
-    <link rel="icon" href="../static/img/eco-logo.png">
+    <link rel="icon" href="../static/img/eco-logo-no-background.png">
 
 </head>
 <body>
@@ -55,6 +55,7 @@
         </nav>
     </div>
 </header>
+<div class="landing">{% block main %}{% endblock %}</div>
 <main>
     {% block content %}{% endblock %}
 </main>

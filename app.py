@@ -103,8 +103,8 @@ def login():
 
 @app.route('/')
 def landing():
-    return render_template('empty.html')
-
+    return render_template('landing.html')
+# TODO: сделать картинку темнее на 30%
 
 # TODO: https://urbanideas.work/work сделать главную страницу, изображение static сзади всего как на сайте
 
