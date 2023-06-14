@@ -2,54 +2,104 @@
 
 {% block main %}
     <div class="main-pic">
-        <img src="../static/img/land-pic-6.png" alt="Background Image"/>
+        <img src="../static/img/land-pic-7.png" alt="Background Image"/>
         <h1 class="centered-text">UrbanIdeas</h1>
         <p class="under-centered-text">Сайт-агрегатор идей по благоустройству города</p>
-        <a class="start-now" href="/registration">Начать сейчас</a>
+        <a class="start-now" href="{{ '/add_idea/step1' if current_user.is_authenticated else '/registration' }}">Начать
+            сейчас</a>
     </div>
     <div class="main-text-landing">
-        <div class="el-problema">
-            <h1>Проблема</h1>
-            <a>
-                Недостаток централизованной платформы, которая бы собирала идеи и предложения по улучшению городской
-                инфраструктуры, общественных услуг, развитию сообщества и другим аспектам городской жизни, приводит к
-                потере возможностей для улучшения качества жизни в городе.
-            </a>
+        <div class="for-what">
+            <h1>В чем проблема?</h1>
+            <a>Отсутствие в Липецкой области такой платформы, которая бы собирала идеи и предложения по
+                благоустройству
+                городской территорий, приводит к потере возможностей для улучшения качества жизни в
+                городе.</a>
         </div>
-        <div class="actuality">
-            <div class="actuality-1">
-                <h1>Актуальность</h1>
-                <a class="white-text">Платформа-агрегатор идей по благоустройству города предоставляет жителям
-                    возможность активно участвовать
-                    в преобразовании своей городской среды. Данный инструмент - пространство для объединения горожан,
-                    архитекторов, городских активистов и меценатов с целью реализации проектов по улучшению
-                    благоустройства.
-                    Такой центр играет важную роль в оповещении городских сообществ об успешных проектах. Целью
-                    платформы
-                    является вовлечение максимального количества активистов в процессы улучшения городской среды, чтобы
-                    совместными усилиями создать комфортное и привлекательное пространство для всех жителей.
-                </a>
+        <div class="why-what">
+            <div class="why-what-blur">
+                <div class="analysis">
+                    <h1>Аналоги</h1>
+                    <table class="table table-main">
+                        <tr>
+                            <th>Продукт</th>
+                            <th>Сотрудничество с профессионалами и специалистами</th>
+                            <th>Для чего</th>
+                            <th>Возможность размещения проекта</th>
+                        </tr>
+                        <tr>
+                            <td>Наш продукт - UrbanIdeas</td>
+                            <td>Кванториум, стратегия, правительство, вовлеченные люди
+                                (волонтеры и т.п.)
+                            </td>
+                            <td>для Липецкой области</td>
+                            <td>Есть</td>
+                        </tr>
+                        <tr>
+                            <td>Москва - Город Идей (crowd.mos.ru)</td>
+                            <td>Правительство,
+                                вовлеченные люди
+                                (волонтеры и т.п.)
+                            </td>
+                            <td>для Московской области</td>
+                            <td>Есть</td>
+                        </tr>
+                        <tr>
+                            <td>Омск - Делай Город (delaigorod.ru)</td>
+                            <td>Вовлеченные люди
+                                (волонтеры и т.п.; специалисты
+                            </td>
+                            <td>для города Омска</td>
+                            <td>Есть</td>
+                        </tr>
+                        <tr>
+                            <td>Липецк - Версаль (versal48.ru)</td>
+                            <td>Неизвестно</td>
+                            <td>для частных участков в Липецке</td>
+                            <td>Нет</td>
+                        </tr>
+                        <tr>
+                            <td>Проект федерального голосования (gorodsreda.ru)</td>
+                            <td>Профессионалы России</td>
+                            <td>для всех регионов</td>
+                            <td>Нет</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="el-grupo"><h1>Команда проекта</h1></div>
-        <div class="team">
-            <div class="team-item">
-                <img src="../static/img/team-1-no-back.png" alt="">
-                <a class="team-name">Марасанов Роман</a>
-                <a class="team-desc">Менеджер по идеям</a>
-            </div>
+        <div class="why-we">
+            <h1>Почему мы?</h1>
+            <a>Наш проект - единственный в своем роде. Он позволяет реализовать идеи, ранее недоступные в
+                Липецке.</a>
+        </div>
+        <div class="why-what">
+            <div class="why-what-blur">
+                <div class="el-grupo"><h1>Команда проекта</h1></div>
+                <div class="team">
+                    <div class="team-item">
+                        <img src="../static/img/team-1-no-back.png" alt="">
+                        <a class="team-name">Марасанов Роман</a>
+                        <a class="team-desc">Менеджер по идеям</a>
+                    </div>
 
-            <div class="team-item">
-                <img src="../static/img/team-2-no-back.png" alt="">
-                <a class="team-name">Чупрына Матвей</a>
-                <a class="team-desc">Разработчик сайте <br>(тех-поддержка)</a>
-            </div>
+                    <div class="team-item">
+                        <img src="../static/img/team-2-no-back.png" alt="">
+                        <a class="team-name">Чупрына Матвей</a>
+                        <a class="team-desc">Разработчик сайте <br>(тех-поддержка)</a>
+                    </div>
 
-            <div class="team-item">
-                <img src="../static/img/team-3-no-back.png" alt="">
-                <a class="team-name">Голосов Антон</a>
-                <a class="team-desc">UI/UХ дизайнер<br>Организатор</a>
+                    <div class="team-item">
+                        <img src="../static/img/team-3-no-back.png" alt="">
+                        <a class="team-name">Голосов Антон</a>
+                        <a class="team-desc">UI/UХ дизайнер<br>Организатор</a>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="buy">
+            <h1>Есть идея? Предложите!</h1>
+            <button class="button add-idea-button"><a href="/add_idea/step1">Вперёд</a></button>
         </div>
     </div>
 

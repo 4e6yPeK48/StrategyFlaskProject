@@ -67,36 +67,24 @@
         integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
         crossorigin="anonymous"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => { // DOM готов к взаимодейтсвию
-
-        const onScrollHeader = () => { // объявляем основную функцию onScrollHeader
-
-            const header = document.querySelector('.header') // находим header и записываем в константу
-
-            let prevScroll = window.pageYOffset // узнаем на сколько была прокручена страница ранее
-            let currentScroll // на сколько прокручена страница сейчас (пока нет значения)
-
-            window.addEventListener('scroll', () => { // при прокрутке страницы
-
-                currentScroll = window.pageYOffset // узнаем на сколько прокрутили страницу
-
-                const headerHidden = () => header.classList.contains('header_hidden') // узнаем скрыт header или нет
-
-                if (currentScroll > prevScroll && !headerHidden()) { // если прокручиваем страницу вниз и header не скрыт
-                    header.classList.add('header_hidden') // то скрываем header
+    document.addEventListener('DOMContentLoaded', () => {
+        const onScrollHeader = () => {
+            const header = document.querySelector('.header')
+            let prevScroll = window.pageYOffset
+            let currentScroll
+            window.addEventListener('scroll', () => {
+                currentScroll = window.pageYOffset
+                const headerHidden = () => header.classList.contains('header_hidden')
+                if (currentScroll > prevScroll && !headerHidden()) {
+                    header.classList.add('header_hidden')
                 }
-                if (currentScroll < prevScroll && headerHidden()) { // если прокручиваем страницу вверх и header скрыт
-                    header.classList.remove('header_hidden') // то отображаем header
+                if (currentScroll < prevScroll && headerHidden()) {
+                    header.classList.remove('header_hidden')
                 }
-
-                prevScroll = currentScroll // записываем на сколько прокручена страница на данный момент
-
+                prevScroll = currentScroll
             })
-
         }
-
-        onScrollHeader() // вызываем основную функцию onScrollHeader
-
+        onScrollHeader()
     });
 
 </script>

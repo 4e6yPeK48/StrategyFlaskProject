@@ -676,14 +676,14 @@ p {
 
 .table {
     width: 100%;
-    outline: 1px solid #1a2030;
-    border-radius: 5px;
+    border-radius: 15px;
     border-collapse: collapse;
 }
 
 .table th,
 .table td {
     text-align: left;
+    background-color: rgba(100, 0, 0, 0.2);
 }
 
 .table th {
@@ -1116,7 +1116,7 @@ p {
 
 .main-pic img {
     width: 100%;
-    height: 969px;
+    height: 1049px;
     filter: blur(5px);
 }
 
@@ -1159,33 +1159,18 @@ p {
 }
 
 .main-text-landing {
-    background-color: #EEFCD9;
     min-height: 500px;
-    padding-top: 100px;
-}
-
-.el-problema {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.el-problema h1 {
-    font-size: 64px;
-}
-
-.el-problema a {
-    font-size: 40px;
+    margin-top: -10px;
 }
 
 .team {
     display: flex;
     flex-direction: row;
-    width: 80%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     justify-content: space-between;
-    margin-bottom: 140px;
+    margin-bottom: 80px;
 }
 
 .team-item img {
@@ -1219,7 +1204,7 @@ p {
 }
 
 .el-grupo h1 {
-    font-size: 64px;
+    font-size: 50px;
 }
 
 .el-grupo {
@@ -1230,33 +1215,89 @@ p {
     margin-top: 80px
 }
 
-.actuality {
+.why-what {
+    background-image: url("../img/pattern.jpg");
+    background-repeat: repeat;
+    background-size: cover;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 80px;
-    background-image: url("../img/land-pic-1.png");
-    background-size: cover;
-    background-position: center;
+    margin-bottom: 50px;
+
 }
 
-.actuality-1 {
-    width: 80%;
+.analysis {
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 50px;
 }
 
-.actuality-1 h1 {
-    font-size: 64px;
-    color: white;
+.analysis h1 {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.actuality-1 a {
-    font-size: 40px;
-    color: white;
+.for-what {
+    width: 80%;
+    margin: 130px auto 160px;
 }
 
-.white-text {
-    color: white;
+.for-what h1 {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.for-what a {
+    font-size: 30px;
+}
+
+.why-we {
+    width: 80%;
+    margin: 130px auto 160px;
+}
+
+.why-we h1 {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.why-we a {
+    font-size: 30px;
+}
+
+.why-what-blur {
+    backdrop-filter: blur(5px);
+    padding: 20px;
+}
+
+.buy {
+    height: 230px;
+    text-align: center;
+}
+
+.buy h1 {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.add-idea-button {
+    margin-top: 20px;
+    border: none;
+    width: fit-content;
+    height: fit-content;
+}
+
+.add-idea-button a {
+    color: #333333;
     text-decoration: none;
+    font-size: 20px;
+}
+
+.add-idea-button:hover a {
+    color: white;
+}
+
+.table-main td{
+    color: white;
 }

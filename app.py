@@ -1,17 +1,15 @@
 from flask import render_template, redirect, request, flash, url_for, session, abort
 from flask import Flask
-from flask_ngrok import run_with_ngrok
 
 import data
 from data import db_session, users, ideas, comments
 from forms.registration import RegistrationForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from forms.login import LoginForm
-from sqlalchemy.orm import Query
 from flask_wtf.csrf import CSRFProtect
 from werkzeug.utils import secure_filename
 from flask_dropzone import Dropzone
-from flask_uploads import UploadSet, configure_uploads, IMAGES, DATA, ALL
+from flask_uploads import UploadSet, configure_uploads, IMAGES
 import os
 import datetime
 from babel.dates import format_datetime
@@ -104,9 +102,7 @@ def login():
 @app.route('/')
 def landing():
     return render_template('landing.html')
-# TODO: сделать картинку темнее на 30%
 
-# TODO: https://urbanideas.work/work сделать главную страницу, изображение static сзади всего как на сайте
 
 # Обработчик для страницы index (main_page.html)
 @app.route('/ideas')
@@ -299,12 +295,12 @@ def like_dislike(idea_id, action):
 
 
 @app.errorhandler(404)
-def not_found_error(error):
+def not_found_error():
     return render_template('404.html'), 404
 
 
 @app.errorhandler(403)
-def not_found_error(error):
+def not_found_error():
     return render_template('403.html'), 403
 
 
@@ -314,5 +310,3 @@ def main():
 
 
 main()
-
-# TODO: задачи - проанализировать, создать эскизы, создать прототип, создать продукт
