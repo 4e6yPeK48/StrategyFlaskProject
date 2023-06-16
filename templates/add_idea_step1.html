@@ -1,9 +1,15 @@
 {% extends "empty.html" %}
 
 {% block content %}
-    <h1>Добавление идеи - шаг 1</h1>
-    <form method="POST">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <input type="submit" value="Далее" class="button" id="button-step-1">
-    </form>
+    <div class="add-idea-card">
+        <h1>Добавление идеи - шаг 1</h1>
+        <a>Вы можете участвовать в жизни города, предлагая свои идеи по его благоустройству, в любое удобное для вас
+            время. Ознакомьтесь с правилами обработки идей и опишите ваше предложение. Лучшие идеи обязательно
+            реализуют.</a>
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="submit" value="Далее" class="button" id="button-step-1">
+        </form>
+    </div>
+
 {% endblock %}

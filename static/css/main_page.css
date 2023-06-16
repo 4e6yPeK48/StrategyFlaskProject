@@ -1196,15 +1196,27 @@ p {
 .team-name {
     color: black;
     font-size: 36px;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.team-name:hover {
+    color: #ffffff;
 }
 
 .team-desc {
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.7);
     font-size: 24px;
+}
+
+.team-desc:hover {
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .el-grupo h1 {
     font-size: 50px;
+
+    padding-top: 30px
 }
 
 .el-grupo {
@@ -1212,7 +1224,6 @@ p {
     margin-right: auto;
     width: fit-content;
     height: fit-content;
-    margin-top: 80px
 }
 
 .why-what {
@@ -1220,10 +1231,7 @@ p {
     background-repeat: repeat;
     background-size: cover;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 50px;
-
+    margin: 20px auto 0;
 }
 
 .analysis {
@@ -1240,35 +1248,18 @@ p {
 
 .for-what {
     width: 80%;
-    margin: 130px auto 160px;
-}
-
-.for-what h1 {
-    font-size: 50px;
-    font-weight: bold;
-}
-
-.for-what a {
-    font-size: 30px;
+    margin: 60px auto 60px;
+    text-align: center;
 }
 
 .why-we {
     width: 80%;
-    margin: 130px auto 160px;
-}
-
-.why-we h1 {
-    font-size: 50px;
-    font-weight: bold;
-}
-
-.why-we a {
-    font-size: 30px;
+    margin: 40px auto 40px;
+    text-align: center;
 }
 
 .why-what-blur {
     backdrop-filter: blur(5px);
-    padding: 20px;
 }
 
 .buy {
@@ -1298,6 +1289,108 @@ p {
     color: white;
 }
 
-.table-main td{
+.table-main td {
     color: white;
+}
+
+.footer {
+    background-color: #5e5e5e;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: fit-content;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.add-idea-card {
+    height: fit-content;
+    width: 70%;
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.timeline {
+    width: 40%;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.timeline-item-left {
+    text-align: right;
+    flex: 1;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+}
+
+
+.white-text:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.timeline-item-right {
+    text-align: left;
+    flex: 1;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+}
+
+.content-center {
+    width: 1%;
+    background-color: #444444;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-right {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.about-us {
+    text-align: center;
+    padding-top: 50px;
+    margin-bottom: 50px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: #444444;
+}
+
+.timeline-item-center {
+    flex: 1;
+}
+
+.your-way {
+    text-align: center;
+    padding: 20px;
 }
