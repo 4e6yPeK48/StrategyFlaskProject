@@ -60,7 +60,7 @@
                      onclick="window.location.href='{{ url_for('idea_detail', idea_id=idea.id) }}'"
                      style="background-image: url('{{ url_for('static', filename='uploads/photos/' + idea.image) if idea.image else url_for('static', filename='img/placeholder.jpg') }}');">
                     <img class="card-img d-none card-image-background"
-                         src="{{ url_for('static', filename='img/' + idea.image) if idea.image else url_for('static', filename='img/placeholder.jpg') }}"
+                         src="{{ url_for('static', filename='uploads/photos/' + idea.image) if idea.image else url_for('static', filename='img/placeholder.jpg') }}"
                          alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
                     <div class="card-img-overlay d-flex flex-column">
                         <div class="card-body">
@@ -71,6 +71,7 @@
                         <div class="card-footer">
                             <div class="media">
                                 <div class="media-body">
+                                    <small>{{ idea.likes }} лайков</small>
                                     <h6 class="my-0 text-white d-block">{{ idea.user.username }}</h6>
                                     <small>Пользователь</small>
                                 </div>

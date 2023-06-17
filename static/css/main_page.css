@@ -2,6 +2,10 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+::-webkit-scrollbar {
+    width: 0;
+}
+
 header {
     position: sticky;
     transition: 1s;
@@ -985,7 +989,8 @@ p {
 }
 
 .admin-button {
-    border: none
+    border: none;
+    margin-bottom: 10px;
 }
 
 .button-sort {
@@ -1298,7 +1303,7 @@ p {
     text-align: center;
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 100%;
     height: fit-content;
     padding-bottom: 30px;
     padding-top: 30px;
@@ -1393,4 +1398,9 @@ p {
 .your-way {
     text-align: center;
     padding: 20px;
+}
+
+.img-anton{
+    object-fit: cover;
+    border-radius: 50%;
 }

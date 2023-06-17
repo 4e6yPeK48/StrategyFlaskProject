@@ -12,7 +12,8 @@
                 <div class="blur-image-card">
                     <div class="idea-image-date">
                         {% if idea.image %}
-                            <img src="{{ url_for('static', filename='img/' + idea.image) }}" alt="Image"
+                            <img src="{{ url_for('static', filename='uploads/photos/' + idea.image) if idea.image else url_for('static', filename='img/placeholder.jpg') }}"
+                                 alt="а где картинка"
                                  id="img-idea-image">
                         {% endif %}
                         <p>Дата добавления: {{ idea.add_time.strftime('%Y-%m-%d %H:%M') }}</p>
