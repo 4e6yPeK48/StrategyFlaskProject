@@ -1,5 +1,6 @@
 from flask import render_template, redirect, request, flash, url_for, session, abort
 from flask import Flask
+from flask_caching import Cache
 
 import data
 from data import db_session, users, ideas, comments
@@ -43,6 +44,10 @@ app.config['DROPZONE_UPLOAD_MULTIPLE'] = False
 app.config['UPLOADED_IMAGES_DEST'] = 'static/img'
 images = UploadSet('images', IMAGES)
 configure_uploads(app, images)
+
+# кофигурация кэширования
+app.config['CACHE_TYPE'] = 'simple'  # You can choose other caching types as well
+cache = Cache(app)
 
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -110,22 +115,34 @@ def index():
     sort_by = request.args.get('sort_by', '')
     search = request.args.get('search', '')
 
-    db_sess = db_session.create_session()
+    # Define a unique cache key based on the route arguments
+    cache_key = f"index:{sort_by}:{search}"
 
-    if sort_by == 'name_asc':
-        ideas = db_sess.query(Idea).filter(Idea.approved == 1).order_by(Idea.name.asc()).all()
-    elif sort_by == 'name_desc':
-        ideas = db_sess.query(Idea).filter(Idea.approved == 1).order_by(Idea.name.desc()).all()
-    elif sort_by == 'date_old':
-        ideas = db_sess.query(Idea).filter(Idea.approved == 1).order_by(Idea.add_time.asc()).all()
-    elif sort_by == 'date_new':
-        ideas = db_sess.query(Idea).filter(Idea.approved == 1).order_by(Idea.add_time.desc()).all()
-    elif search:
-        ideas = db_sess.query(Idea).filter(Idea.approved == 1, Idea.name.ilike(f'%{search}%')).all()
-    else:
-        ideas = db_sess.query(Idea).filter(Idea.approved == 1).all()
+    # Check if the result is already cached
+    result = cache.get(cache_key)
+    if result is None:
+        db_sess = db_session.create_session()
 
-    return render_template('main_page.html', ideas=ideas, sort_by=sort_by)
+        ideas_query = db_sess.query(Idea).filter(Idea.approved == 1)
+
+        match sort_by:
+            case 'name_asc':
+                ideas = ideas_query.order_by(Idea.name.asc()).all()
+            case 'name_desc':
+                ideas = ideas_query.order_by(Idea.name.desc()).all()
+            case 'date_old':
+                ideas = ideas_query.order_by(Idea.add_time.asc()).all()
+            case 'date_new':
+                ideas = ideas_query.order_by(Idea.add_time.desc()).all()
+            case _:
+                ideas = ideas_query.all()
+
+        # Cache the result with the defined cache key
+        cache.set(cache_key, ideas, timeout=600)  # Cache the result for 10 minutes (600 seconds)
+
+        result = ideas
+
+    return render_template('main_page.html', ideas=result, sort_by=sort_by)
 
 
 @app.route('/add_comment/<int:idea_id>', methods=['POST'])
